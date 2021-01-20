@@ -10,28 +10,48 @@
  *
  * @param {string} name
  * @param {string} surname
- * @param {number} entryYear
+ * @param {num} year
  */
 class User {
   constructor(name, surname) {
-    this._name = name;
-    this._surname = surname;
+    this.name = name;
+    this.surname = surname;
+  }
+  set name(newName) {
+    if (typeof newName !== "string") {
+      throw new TypeError();
+    }
+    this._name = newName;
+  }
+  get name() {
+    return this._name;
+  }
+  set surname(newSurname) {
+    if (typeof newSurname !== "string") {
+      throw new TypeError();
+    }
+    this._surname = newSurname;
+  }
+  get surname() {
+    return this._surname;
   }
   getFullName() {
     return `${this._name}${this._surname}`;
   }
 }
 class Student extends User {
-  constructor(name, surname, entryYear) {
+  constructor(name, surname, year) {
     super(name, surname);
-    this._entryYear = entryYear;
+    this._year = year;
+  }
+  get year() {
+    return this._year;
   }
   getCourse() {
     const currentYear = new Date();
-    const course =
-      currentYear.getFullYear() - this._entryYear.getFullYear() + 1;
+    const course = currentYear.getFullYear() - this._year.getFullYear() + 1;
     if (course < 1) {
-      throw RangeError("You are not a student yet");
+      throw RangeError("You are not a student");
     }
     if (course > 5) {
       throw RangeError("You have completed your training");
